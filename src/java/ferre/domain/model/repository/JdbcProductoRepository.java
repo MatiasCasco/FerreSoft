@@ -49,41 +49,41 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
 
     @Override
     public Producto getProducto(int idProducto) throws Exception {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        Producto retValue = null;
-        Connection c = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-
-        try {
-            c = DBUtils.getConnection();
-            pstmt = c.prepareStatement("SELECT * FROM producto WHERE ProductoId = ?");
-
-            pstmt.setInt(1, idProducto);
-
-            rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-
-                retValue = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getBoolean("ProductoBoolean"), rs.getInt("ProductoId"), rs.getString("ProductoNombre"));
-            
-            } 
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (pstmt != null) {
-                    pstmt.close();
-                }
-                DBUtils.closeConnection(c);
-            } catch (SQLException ex) {
-                Logger.getLogger(JdbcProductoRepository.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return retValue;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        Producto retValue = null;
+//        Connection c = null;
+//        PreparedStatement pstmt = null;
+//        ResultSet rs = null;
+//
+//        try {
+//            c = DBUtils.getConnection();
+//            pstmt = c.prepareStatement("SELECT * FROM producto WHERE ProductoId = ?");
+//
+//            pstmt.setInt(1, idProducto);
+//
+//            rs = pstmt.executeQuery();
+//
+//            if (rs.next()) {
+//
+//                retValue = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getBoolean("ProductoBoolean"), rs.getInt("ProductoId"), rs.getString("ProductoNombre"));
+//            
+//            } 
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                if (rs != null) {
+//                    rs.close();
+//                }
+//                if (pstmt != null) {
+//                    pstmt.close();
+//                }
+//                DBUtils.closeConnection(c);
+//            } catch (SQLException ex) {
+//                Logger.getLogger(JdbcProductoRepository.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//        return retValue;
     }
 
     @Override
