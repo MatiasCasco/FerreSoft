@@ -16,6 +16,8 @@ public class Producto extends BaseEntity<Integer>{
     private String medidaStock;
     private int categoriaId;
     private boolean productoBoolean;
+    private byte[] archivoimg = {};
+    private String archivoimg2 = " ";
 
     public Producto(Integer id, String nombre) {
         super(0, "");
@@ -29,6 +31,41 @@ public class Producto extends BaseEntity<Integer>{
         this.productoBoolean = productoBoolean;
     }
 
+    public Producto(float iva, String medidaStock, int categoriaId, boolean productoBoolean, String archivoimg2, Integer id, String nombre) {
+        super(id, nombre);
+        this.iva = iva;
+        this.medidaStock = medidaStock;
+        this.categoriaId = categoriaId;
+        this.productoBoolean = productoBoolean;
+        this.archivoimg2 = archivoimg2;
+    }
+
+    public Producto(float iva, String medidaStock, int categoriaId, boolean productoBoolean, byte[] archivoimg, String archivoimg2, Integer id, String nombre) {
+        super(id, nombre);
+        this.iva = iva;
+        this.medidaStock = medidaStock;
+        this.categoriaId = categoriaId;
+        this.productoBoolean = productoBoolean;
+        this.archivoimg = archivoimg;
+        this.archivoimg2 = archivoimg2;
+    }
+
+    public byte[] getArchivoimg() {
+        return archivoimg;
+    }
+
+    public void setArchivoimg(byte[] archivoimg) {
+        this.archivoimg = archivoimg;
+    }
+
+    public String getArchivoimg2() {
+        return archivoimg2;
+    }
+
+    public void setArchivoimg2(String archivoimg2) {
+        this.archivoimg2 = archivoimg2;
+    }
+    
     public float getIva() {
         return iva;
     }
@@ -68,7 +105,10 @@ public class Producto extends BaseEntity<Integer>{
                 .append(", iva: ").append(iva)
                 .append(", medidaStock: ").append(medidaStock)
                 .append(", categoriaId: ").append(categoriaId)
-                .append(", productoBoolean: ").append(productoBoolean).append("}").toString();
+                .append(", productoBoolean: ").append(productoBoolean)
+                .append(", archivoimg: ").append(archivoimg)
+                .append(", archivoimg2:").append(archivoimg2)
+                .append("}").toString();
     }
 
 }

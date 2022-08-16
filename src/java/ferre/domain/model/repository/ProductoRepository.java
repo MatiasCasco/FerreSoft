@@ -12,23 +12,23 @@ import java.util.Collection;
  * @author User
  */
 public interface ProductoRepository<Producto, Integer> extends Repository<Producto, Integer> {
-    
-    /**
-     *
-     * @param idProducto
-     * @return Boolean
-     * @throws Exception
-     */
-    public boolean ContainsId(int idProducto) throws Exception;
-    
-    /**
-     * 
-     * @param idProducto
-     * @return Producto
-     * @throws Exception
-     */
-    public Producto  getProducto(int idProducto) throws Exception;
-    
+//    
+//    /**
+//     *
+//     * @param idProducto
+//     * @return Boolean
+//     * @throws Exception
+//     */
+//    public boolean ContainsId(int idProducto) throws Exception;
+//    
+//    /**
+//     * 
+//     * @param idProducto
+//     * @return Producto
+//     * @throws Exception
+//     */
+//    public Producto  getProducto(int idProducto) throws Exception;
+//    
     /**
      * Todas los productos de una marca
      * @param idMarca
