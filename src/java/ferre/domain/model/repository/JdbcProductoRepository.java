@@ -276,7 +276,7 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
         Connection c = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        String var = " ";
+
         try {
             c = DBUtils.getConnection();
             pstmt = c.prepareStatement("SELECT * FROM producto WHERE ProductoId = ?");
