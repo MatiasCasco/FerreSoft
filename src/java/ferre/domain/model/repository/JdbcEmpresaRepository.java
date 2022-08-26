@@ -248,7 +248,7 @@ public class JdbcEmpresaRepository implements EmpresaRepository<Empresa, Integer
                 }
                 DBUtils.closeConnection(c);
             } catch (SQLException ex) {
-                Logger.getLogger(JdbcProductoRepository.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(JdbcEmpresaRepository.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return retValue;
@@ -256,7 +256,7 @@ public class JdbcEmpresaRepository implements EmpresaRepository<Empresa, Integer
 
     @Override
     public Collection<Empresa> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.     
     }
     
 }

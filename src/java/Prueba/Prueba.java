@@ -76,10 +76,10 @@ public class Prueba {
 //        ArrayList<EmpresaContacto> empCont = new ArrayList();
 //        empCont.add(new EmpresaContacto(5, 3, "Carlos Coronel", "+59598108899", "coronel@gmail.com"));
 //        empCont.add(new EmpresaContacto(6, 3, "Call Center Pai Puku", "+59598108898", "paipuku@gmail.com"));
-        Empresa.remove(4);
+//        Empresa.remove(4);
 //        Empresa.update(new Empresa("4321700-8", empCont, 3, "Pai Puku"));
 //        System.out.println(Empresa.findByRuc("4321716-8"));
-//        System.out.println(Empresa.findByName("Tigre s.a"));
+        System.out.println(Empresa.findByName("Tigre s.a"));
 //        JdbcEmpresaContactoRepository EC = new JdbcEmpresaContactoRepository();
 //        EC.removeContactosEmpresa(1);
 

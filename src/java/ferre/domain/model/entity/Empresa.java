@@ -18,6 +18,9 @@ public class Empresa extends BaseEntity<Integer> {
     private String empresaRuc = "0000000-0";
     private ArrayList<EmpresaContacto> contacto = new ArrayList();
 
+    public Empresa() {
+    }
+    
     public Empresa(Integer id, String nombre) {
         super(id, nombre);
     }
