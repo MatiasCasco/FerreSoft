@@ -24,7 +24,12 @@ public class Empresa extends BaseEntity<Integer> {
     public Empresa(Integer id, String nombre) {
         super(id, nombre);
     }
-
+    
+    public Empresa(Integer id, String nombre, String empresaRuc) {
+        super(id, nombre);
+        this.empresaRuc = empresaRuc;
+    }
+    
     public Empresa(String empresaRuc, ArrayList<EmpresaContacto> contacto, Integer id, String nombre) {
         super(id, nombre);
         this.empresaRuc = empresaRuc;

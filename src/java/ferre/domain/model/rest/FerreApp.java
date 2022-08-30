@@ -20,6 +20,7 @@ public class FerreApp extends Application {
 
     public FerreApp() {
         singletons.add(new EmpresaRestService());
+        singletons.add(new OrigenProductoRestService());
     }
 
     @Override

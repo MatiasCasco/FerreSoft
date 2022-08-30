@@ -11,10 +11,10 @@ import java.util.Collection;
 
 /**
  *
- * @author User
+ * @author Matias
  */
 public interface EmpresaService {
-     /**
+    /**
      *
      * @param empresa
      * @throws Exception

@@ -11,7 +11,9 @@ package ferre.domain.model.entity;
  */
 public class DetalleProducto extends BaseEntity<Integer> {
     private int productoId;
+    private Producto producto;
     private int marcaId;
+    private String marcaNombre;
     private int productoCosto;
     private int productoPrecio;
     private int productoStockMax;
@@ -33,6 +35,35 @@ public class DetalleProducto extends BaseEntity<Integer> {
         this.productoStockMin = productoStockMin;
     }
 
+    public DetalleProducto(int productoId, Producto producto, int marcaId, String marcaNombre, int productoCosto, int productoPrecio, int productoStockMax, int productoStockActual, int productoStockMin, Integer id, String nombre) {
+        super(id, nombre);
+        this.productoId = productoId;
+        this.producto = producto;
+        this.marcaId = marcaId;
+        this.marcaNombre = marcaNombre;
+        this.productoCosto = productoCosto;
+        this.productoPrecio = productoPrecio;
+        this.productoStockMax = productoStockMax;
+        this.productoStockActual = productoStockActual;
+        this.productoStockMin = productoStockMin;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public String getMarcaNombre() {
+        return marcaNombre;
+    }
+
+    public void setMarcaNombre(String marcaNombre) {
+        this.marcaNombre = marcaNombre;
+    }
+    
     public int getProductoId() {
         return productoId;
     }
@@ -92,9 +123,11 @@ public class DetalleProducto extends BaseEntity<Integer> {
     @Override
     public String toString() {
          return new StringBuilder("{id: ").append(id)
-                .append(", nombre: ").append(nombre)
                 .append(", productoId: ").append(productoId)
+                .append(", productoNombre: ").append(producto.getProductoNombre())
+                .append(", productoIva: ").append(producto.getIva())
                 .append(", marcaId: ").append(marcaId)
+                .append(", marcaNombre: ").append(marcaNombre)
                 .append(", productoCosto: ").append(productoCosto)
                 .append(", productoPrecio: ").append(productoPrecio)
                 .append(", productoStockMax: ").append(productoStockMax)

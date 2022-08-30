@@ -13,6 +13,7 @@ import ferre.domain.model.repository.JdbcDetalleProducto;
 import ferre.domain.model.repository.JdbcEmpresaContactoRepository;
 import ferre.domain.model.repository.JdbcEmpresaRepository;
 import ferre.domain.model.repository.JdbcImageRepository;
+import ferre.domain.model.repository.JdbcOrigenProductoRepository;
 import ferre.domain.model.repository.JdbcProductoRepository;
 import ferre.domain.model.repository.ProductoRepository;
 import java.io.FileInputStream;
@@ -72,6 +73,7 @@ public class Prueba {
         System.out.println(Imagen.image(13));
         System.out.println(Imagen.image(12));
         */
+        /* Empresa
         JdbcEmpresaRepository Empresa = new JdbcEmpresaRepository();
 //        ArrayList<EmpresaContacto> empCont = new ArrayList();
 //        empCont.add(new EmpresaContacto(5, 3, "Carlos Coronel", "+59598108899", "coronel@gmail.com"));
@@ -82,6 +84,8 @@ public class Prueba {
         System.out.println(Empresa.findByName("Tigre s.a"));
 //        JdbcEmpresaContactoRepository EC = new JdbcEmpresaContactoRepository();
 //        EC.removeContactosEmpresa(1);
-
+         */
+        JdbcOrigenProductoRepository OrigenProducto = new JdbcOrigenProductoRepository();
+        System.out.println(OrigenProducto.findByIdProductoAndIdEmpresa(5, 2));
     }   
 }

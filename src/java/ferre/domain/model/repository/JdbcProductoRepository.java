@@ -97,16 +97,17 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
         ResultSet rs = null;       
         try {
             c = DBUtils.getConnection();
-            pstmt = c.prepareStatement(" select P.ProductoId, P.ProductoNombre, P.ProductoIva, P.ProductoMedidaStock, P.CategoriaId, P.ProductoBoolean"
-            + " from Producto P, DetalleProducto DP, Marca M"
+            pstmt = c.prepareStatement(" select P.ProductoId, P.ProductoNombre, P.ProductoIva, P.ProductoMedidaStock, P.CategoriaId, C.CategoriaNombre, P.ProductoBoolean"
+            + " from Producto P, DetalleProducto DP, Marca M, Categoria C"
             + " where P.ProductoId = DP.ProductoId"
             + " and DP.MarcaId = M.MarcaId"
+            + " and P.CategoriaId = C.CategoriaId"         
             + " and M.MarcaId = ? GROUP BY P.ProductoNombre ORDER by P.ProductoNombre");
             pstmt.setInt(1, idMarca);
             rs = pstmt.executeQuery();
 
             while (rs.next()) {              
-                retValue.add(new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getBoolean("ProductoBoolean"), rs.getInt("ProductoId"), rs.getString("ProductoNombre")));
+                retValue.add(new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), rs.getInt("ProductoId"), rs.getString("ProductoNombre")));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -135,14 +136,15 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
         ResultSet rs = null;       
         try {
             c = DBUtils.getConnection();
-            pstmt = c.prepareStatement(" select ProductoId, ProductoNombre, ProductoIva, ProductoMedidaStock, CategoriaId, ProductoBoolean"
-            + " from Producto"
-            + " where CategoriaId = ? GROUP BY ProductoNombre ORDER by ProductoNombre");
+            pstmt = c.prepareStatement(" select P.ProductoId, P.ProductoNombre, P.ProductoIva, P.ProductoMedidaStock, P.CategoriaId, C.CategoriaNombre, P.ProductoBoolean"
+            + " from Producto P, Categoria C"
+            + " where P.CategoriaId = C.CategoriaId"
+            + "CategoriaId = ? GROUP BY ProductoNombre ORDER by ProductoNombre");
             pstmt.setInt(1, idCategoria);
             rs = pstmt.executeQuery();
 
             while (rs.next()) {              
-                retValue.add(new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getBoolean("ProductoBoolean"), rs.getInt("ProductoId"), rs.getString("ProductoNombre")));
+                retValue.add(new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), rs.getInt("ProductoId"), rs.getString("ProductoNombre")));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -279,14 +281,17 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
 
         try {
             c = DBUtils.getConnection();
-            pstmt = c.prepareStatement("SELECT * FROM producto WHERE ProductoId = ?");
+            pstmt = c.prepareStatement("select P.ProductoId, P.ProductoNombre, P.ProductoIva, P.ProductoMedidaStock, P.CategoriaId, C.CategoriaNombre, P.ProductoBoolean"
+            + " from Producto P, Categoria C"
+            + " where P.CategoriaId = C.CategoriaId"
+            + " and P.ProductoId = ?");
 
             pstmt.setInt(1, id);
 
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                retValue = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getBoolean("ProductoBoolean"), Base64.getEncoder().encodeToString(rs.getBytes("ProductoFoto")), rs.getInt("ProductoId"), rs.getString("ProductoNombre"));               
+                retValue = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), Base64.getEncoder().encodeToString(rs.getBytes("ProductoFoto")), rs.getInt("ProductoId"), rs.getString("ProductoNombre"));               
             } 
         } catch (Exception e) {
             e.printStackTrace();
@@ -316,11 +321,12 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
         
         try {
             c = DBUtils.getConnection();
-            pstmt = c.prepareStatement("select * from Producto");
+            pstmt = c.prepareStatement("select P.ProductoId, P.ProductoNombre, P.ProductoIva, P.ProductoMedidaStock, P.CategoriaId, C.CategoriaNombre, P.ProductoBoolean"
+            + " from Producto P, Categoria C"
+            + " where P.CategoriaId = C.CategoriaId");
             rs = pstmt.executeQuery();
             while (rs.next()) {
-                retValue.add(new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getBoolean("ProductoBoolean"), rs.getInt("ProductoId"), rs.getString("ProductoNombre")));
-
+                retValue.add(new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), rs.getInt("ProductoId"), rs.getString("ProductoNombre")));
             }
         } catch (Exception e) {
             e.printStackTrace();

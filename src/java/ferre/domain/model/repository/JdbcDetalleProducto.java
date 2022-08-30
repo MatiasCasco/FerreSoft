@@ -7,6 +7,7 @@ package ferre.domain.model.repository;
 
 import ferre.domain.model.entity.DetalleProducto;
 import ferre.domain.model.entity.Entity;
+import ferre.domain.model.entity.Producto;
 import ferre.util.DBUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,12 +33,20 @@ public class JdbcDetalleProducto implements DetalleProductoRepository<DetallePro
         ResultSet rs = null;       
         try {
             c = DBUtils.getConnection();
-            pstmt = c.prepareStatement(" select * from DetalleProducto where ProductoId = ?");
+            pstmt = c.prepareStatement("select"
+            + " p.ProductoId, p.ProductoNombre, p.ProductoIva, p.ProductoMedidaStock, p.CategoriaId, c.CategoriaNombre, p.ProductoBoolean,"
+            + " dp.DetalleProductoId, dp.MarcaId, m.MarcaNombre, dp.ProductoCosto, dp.ProductoPrecio, dp.ProductoStockMin,"
+            + " dp.ProductoStockActual, dp.ProductoStockMax "
+            + "from producto p, detalleproducto dp, marca m, categoria c "
+            + "where p.ProductoId = dp.ProductoId and dp.MarcaId = m.MarcaId"
+            + " and p.CategoriaId = c.CategoriaId"        
+            + " and p.ProductoId = ?");
             pstmt.setInt(1, idProducto);
             rs = pstmt.executeQuery();
 
-            while (rs.next()) {            
-                retValue.add(new DetalleProducto(rs.getInt("ProductoId"), rs.getInt("MarcaId"), rs.getInt("ProductoCosto"), rs.getInt("ProductoPrecio"), rs.getInt("ProductoStockMax"), rs.getInt("ProductoStockActual"), rs.getInt("ProductoStockMin") , rs.getInt("DetalleProductoId"), "Descripcion"));
+            while (rs.next()) {
+                Producto prod = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), rs.getInt("ProductoId"), rs.getString("ProductoNombre"));
+                retValue.add(new DetalleProducto(rs.getInt("ProductoId"), prod,rs.getInt("MarcaId"), rs.getString("MarcaNombre"),rs.getInt("ProductoCosto"), rs.getInt("ProductoPrecio"), rs.getInt("ProductoStockMax"), rs.getInt("ProductoStockActual"), rs.getInt("ProductoStockMin") , rs.getInt("DetalleProductoId"), "Descripcion"));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,13 +77,21 @@ public class JdbcDetalleProducto implements DetalleProductoRepository<DetallePro
 
         try {
             c = DBUtils.getConnection();
-            pstmt = c.prepareStatement("SELECT * FROM DetalleProducto WHERE ProductoId = ? and MarcaId = ?");
+            pstmt = c.prepareStatement("select "
+            + "p.ProductoId, p.ProductoNombre, p.ProductoIva, p.ProductoMedidaStock, p.CategoriaId, c.CategoriaNombre, p.ProductoBoolean,"
+            + " dp.DetalleProductoId, dp.MarcaId, m.MarcaNombre, dp.ProductoCosto, dp.ProductoPrecio, dp.ProductoStockMin,"
+            + " dp.ProductoStockActual, dp.ProductoStockMax "
+            + "from producto p, detalleproducto dp, marca m, categoria c "
+            + "where p.ProductoId = dp.ProductoId and dp.MarcaId = m.MarcaId "
+            + " and p.CategoriaId = c.CategoriaId "        
+            + "and p.ProductoId = ? and m.MarcaId = ? ");
             pstmt.setInt(1, idProducto);
             pstmt.setInt(2, idMarca);
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                retValue = new DetalleProducto(rs.getInt("ProductoId"), rs.getInt("MarcaId"), rs.getInt("ProductoCosto"), rs.getInt("ProductoPrecio"), rs.getInt("ProductoStockMax"), rs.getInt("ProductoStockActual"), rs.getInt("ProductoStockMin") , rs.getInt("DetalleProductoId"), "Descripcion");            
+                Producto prod = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), rs.getInt("ProductoId"), rs.getString("ProductoNombre"));
+                retValue = new DetalleProducto(rs.getInt("ProductoId"), prod,rs.getInt("MarcaId"), rs.getString("MarcaNombre"),rs.getInt("ProductoCosto"), rs.getInt("ProductoPrecio"), rs.getInt("ProductoStockMax"), rs.getInt("ProductoStockActual"), rs.getInt("ProductoStockMin") , rs.getInt("DetalleProductoId"), "Descripcion");                           
             } 
         } catch (Exception e) {
             e.printStackTrace();
@@ -212,14 +229,21 @@ public class JdbcDetalleProducto implements DetalleProductoRepository<DetallePro
 
         try {
             c = DBUtils.getConnection();
-            pstmt = c.prepareStatement("SELECT * FROM DetalleProducto WHERE DetalleProductoId = ?");
+            pstmt = c.prepareStatement("select "
+            + "p.ProductoId, p.ProductoNombre, p.ProductoIva, p.ProductoMedidaStock, p.CategoriaId, c.CategoriaNombre, p.ProductoBoolean,"
+            + " dp.DetalleProductoId, dp.MarcaId, m.MarcaNombre, dp.ProductoCosto, dp.ProductoPrecio,"
+            + " dp.ProductoStockMin, dp.ProductoStockActual, dp.ProductoStockMax from producto p, detalleproducto dp,"
+            + " marca m, categoria c where p.ProductoId = dp.ProductoId and dp.MarcaId = m.MarcaId "
+            + " and p.CategoriaId = c.CategoriaId"
+            + " and dp.DetalleProductoId = ? ");
 
             pstmt.setInt(1, id);
 
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                retValue = new DetalleProducto(rs.getInt("ProductoId"), rs.getInt("MarcaId"), rs.getInt("ProductoCosto"), rs.getInt("ProductoPrecio"), rs.getInt("ProductoStockMax"), rs.getInt("ProductoStockActual"), rs.getInt("ProductoStockMin") , rs.getInt("DetalleProductoId"), "Descripcion");          
+                Producto prod = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), rs.getInt("ProductoId"), rs.getString("ProductoNombre"));
+                retValue = new DetalleProducto(rs.getInt("ProductoId"), prod,rs.getInt("MarcaId"), rs.getString("MarcaNombre"),rs.getInt("ProductoCosto"), rs.getInt("ProductoPrecio"), rs.getInt("ProductoStockMax"), rs.getInt("ProductoStockActual"), rs.getInt("ProductoStockMin") , rs.getInt("DetalleProductoId"), "Descripcion");                           
             } 
         } catch (Exception e) {
             e.printStackTrace();
@@ -249,10 +273,18 @@ public class JdbcDetalleProducto implements DetalleProductoRepository<DetallePro
         
         try {
             c = DBUtils.getConnection();
-            pstmt = c.prepareStatement("select * from DetalleProducto");
+            pstmt = c.prepareStatement("select "
+            + "p.ProductoId, p.ProductoNombre, p.ProductoIva, p.ProductoMedidaStock, p.CategoriaId, c.CategoriaNombre, p.ProductoBoolean, "
+            + "dp.DetalleProductoId, dp.MarcaId, m.MarcaNombre, dp.ProductoCosto, dp.ProductoPrecio, dp.ProductoStockMin,"
+            + " dp.ProductoStockActual, dp.ProductoStockMax "
+            + "from producto p, detalleproducto dp, marca m, categoria c "
+            + "where p.ProductoId = dp.ProductoId"
+            + " and p.CategoriaId = c.CategoriaId"
+            + " and dp.MarcaId = m.MarcaId");
             rs = pstmt.executeQuery();
             while (rs.next()) {
-                retValue.add(new DetalleProducto(rs.getInt("ProductoId"), rs.getInt("MarcaId"), rs.getInt("ProductoCosto"), rs.getInt("ProductoPrecio"), rs.getInt("ProductoStockMax"), rs.getInt("ProductoStockActual"), rs.getInt("ProductoStockMin") , rs.getInt("DetalleProductoId"), "Descripcion"));
+                Producto prod = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), rs.getInt("ProductoId"), rs.getString("ProductoNombre"));
+                retValue.add(new DetalleProducto(rs.getInt("ProductoId"), prod,rs.getInt("MarcaId"), rs.getString("MarcaNombre"),rs.getInt("ProductoCosto"), rs.getInt("ProductoPrecio"), rs.getInt("ProductoStockMax"), rs.getInt("ProductoStockActual"), rs.getInt("ProductoStockMin") , rs.getInt("DetalleProductoId"), "Descripcion"));
             }
         } catch (Exception e) {
             e.printStackTrace();
