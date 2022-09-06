@@ -5,10 +5,17 @@
  */
 package ferre.domain.model.entity;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  *
- * @author User
+ * @author Matias
  */
+@XmlRootElement(name="EmpresaContacto")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class EmpresaContacto {
     
     private int empresaContactoId;
@@ -35,7 +42,7 @@ public class EmpresaContacto {
     public void setEmpresaId(int empresaId) {
         this.empresaId = empresaId;
     }
-
+    
     public int getEmpresaContactoId() {
         return empresaContactoId;
     }
@@ -43,7 +50,7 @@ public class EmpresaContacto {
     public void setEmpresaContactoId(int empresaContactoId) {
         this.empresaContactoId = empresaContactoId;
     }
-
+    
     public String getContactoNombre() {
         return contactoNombre;
     }
@@ -51,7 +58,7 @@ public class EmpresaContacto {
     public void setContactoNombre(String contactoNombre) {
         this.contactoNombre = contactoNombre;
     }
-
+    
     public String getContactoPhone() {
         return contactoPhone;
     }
@@ -59,7 +66,7 @@ public class EmpresaContacto {
     public void setContactoPhone(String contactoPhone) {
         this.contactoPhone = contactoPhone;
     }
-
+    
     public String getContactoEmail() {
         return contactoEmail;
     }

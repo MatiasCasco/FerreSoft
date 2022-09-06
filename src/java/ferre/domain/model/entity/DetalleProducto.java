@@ -7,7 +7,7 @@ package ferre.domain.model.entity;
 
 /**
  *
- * @author User
+ * @author Matias
  */
 public class DetalleProducto extends BaseEntity<Integer> {
     private int productoId;
@@ -63,7 +63,7 @@ public class DetalleProducto extends BaseEntity<Integer> {
     public void setMarcaNombre(String marcaNombre) {
         this.marcaNombre = marcaNombre;
     }
-    
+
     public int getProductoId() {
         return productoId;
     }
@@ -99,7 +99,7 @@ public class DetalleProducto extends BaseEntity<Integer> {
     public int getProductoStockMax() {
         return productoStockMax;
     }
-
+    
     public void setProductoStockMax(int productoStockMax) {
         this.productoStockMax = productoStockMax;
     }
@@ -125,6 +125,7 @@ public class DetalleProducto extends BaseEntity<Integer> {
          return new StringBuilder("{id: ").append(id)
                 .append(", productoId: ").append(productoId)
                 .append(", productoNombre: ").append(producto.getProductoNombre())
+                .append(", image: ").append(producto.getArchivoimg2()) 
                 .append(", productoIva: ").append(producto.getIva())
                 .append(", marcaId: ").append(marcaId)
                 .append(", marcaNombre: ").append(marcaNombre)

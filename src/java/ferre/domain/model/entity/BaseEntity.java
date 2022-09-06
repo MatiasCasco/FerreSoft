@@ -5,6 +5,12 @@
  */
 package ferre.domain.model.entity;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+
+
 
 
 /**
@@ -12,6 +18,8 @@ package ferre.domain.model.entity;
  * @author Matias
  * @param <T>  
  */
+@XmlRootElement(name="BaseEntity")
+@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class BaseEntity<T> extends Entity<T> {
     
     private boolean isModified;
@@ -34,7 +42,7 @@ public abstract class BaseEntity<T> extends Entity<T> {
     public boolean isIsModified() {
         return isModified;
     }
-
+    
     public String getNombre() {
         return nombre;
     }

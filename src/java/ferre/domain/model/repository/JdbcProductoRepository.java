@@ -94,7 +94,9 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
         Collection<Producto> retValue = new ArrayList();
         Connection c = null;
         PreparedStatement pstmt = null;
-        ResultSet rs = null;       
+        ResultSet rs = null;
+        final String link  = "localhost:8084/FerreSoft/rest/ImageAPI/image/"; 
+        String image = "";
         try {
             c = DBUtils.getConnection();
             pstmt = c.prepareStatement(" select P.ProductoId, P.ProductoNombre, P.ProductoIva, P.ProductoMedidaStock, P.CategoriaId, C.CategoriaNombre, P.ProductoBoolean"
@@ -102,12 +104,13 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
             + " where P.ProductoId = DP.ProductoId"
             + " and DP.MarcaId = M.MarcaId"
             + " and P.CategoriaId = C.CategoriaId"         
-            + " and M.MarcaId = ? GROUP BY P.ProductoNombre ORDER by P.ProductoNombre");
+            + " and M.MarcaId = ? ORDER by P.ProductoNombre");
             pstmt.setInt(1, idMarca);
             rs = pstmt.executeQuery();
 
-            while (rs.next()) {              
-                retValue.add(new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), rs.getInt("ProductoId"), rs.getString("ProductoNombre")));
+            while (rs.next()) { 
+                image = link + String.valueOf(rs.getInt("ProductoId"));
+                retValue.add(new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), image, rs.getInt("ProductoId"), rs.getString("ProductoNombre")));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -133,18 +136,21 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
         Collection<Producto> retValue = new ArrayList();
         Connection c = null;
         PreparedStatement pstmt = null;
-        ResultSet rs = null;       
+        ResultSet rs = null;
+        final String link  = "localhost:8084/FerreSoft/rest/ImageAPI/image/"; 
+        String image = "";
         try {
             c = DBUtils.getConnection();
             pstmt = c.prepareStatement(" select P.ProductoId, P.ProductoNombre, P.ProductoIva, P.ProductoMedidaStock, P.CategoriaId, C.CategoriaNombre, P.ProductoBoolean"
             + " from Producto P, Categoria C"
-            + " where P.CategoriaId = C.CategoriaId"
-            + "CategoriaId = ? GROUP BY ProductoNombre ORDER by ProductoNombre");
+            + " where P.CategoriaId = C.CategoriaId "
+            + "and C.CategoriaId = ? ORDER by p.ProductoNombre");
             pstmt.setInt(1, idCategoria);
             rs = pstmt.executeQuery();
 
-            while (rs.next()) {              
-                retValue.add(new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), rs.getInt("ProductoId"), rs.getString("ProductoNombre")));
+            while (rs.next()) {
+                image = link + String.valueOf(rs.getInt("ProductoId"));
+                retValue.add(new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), image, rs.getInt("ProductoId"), rs.getString("ProductoNombre")));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -278,7 +284,8 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
         Connection c = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-
+        final String link  = "localhost:8084/FerreSoft/rest/ImageAPI/image/"; 
+        String image = "";
         try {
             c = DBUtils.getConnection();
             pstmt = c.prepareStatement("select P.ProductoId, P.ProductoNombre, P.ProductoIva, P.ProductoMedidaStock, P.CategoriaId, C.CategoriaNombre, P.ProductoBoolean"
@@ -291,7 +298,9 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                retValue = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), Base64.getEncoder().encodeToString(rs.getBytes("ProductoFoto")), rs.getInt("ProductoId"), rs.getString("ProductoNombre"));               
+                image = link + String.valueOf(rs.getInt("ProductoId"));
+//                retValue = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), Base64.getEncoder().encodeToString(rs.getBytes("ProductoFoto")), rs.getInt("ProductoId"), rs.getString("ProductoNombre"));               
+                retValue = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), image, rs.getInt("ProductoId"), rs.getString("ProductoNombre"));               
             } 
         } catch (Exception e) {
             e.printStackTrace();
@@ -318,7 +327,8 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
         Connection c = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        
+        final String link  = "localhost:8084/FerreSoft/rest/ImageAPI/image/"; 
+        String image = "";
         try {
             c = DBUtils.getConnection();
             pstmt = c.prepareStatement("select P.ProductoId, P.ProductoNombre, P.ProductoIva, P.ProductoMedidaStock, P.CategoriaId, C.CategoriaNombre, P.ProductoBoolean"
@@ -326,7 +336,8 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
             + " where P.CategoriaId = C.CategoriaId");
             rs = pstmt.executeQuery();
             while (rs.next()) {
-                retValue.add(new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), rs.getInt("ProductoId"), rs.getString("ProductoNombre")));
+                image = link + String.valueOf(rs.getInt("ProductoId"));
+                retValue.add(new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), image,rs.getInt("ProductoId"), rs.getString("ProductoNombre")));
             }
         } catch (Exception e) {
             e.printStackTrace();

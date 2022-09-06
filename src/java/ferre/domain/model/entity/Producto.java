@@ -16,13 +16,21 @@ public class Producto extends BaseEntity<Integer>{
     private int categoriaId;
     private String categoriaNombre;
     private boolean productoBoolean;
-    private byte[] archivoimg = {};
-    private String archivoimg2 = " ";
+    private byte[] archivoimg/* = {}*/;
+    private String archivoimg2/* = " "*/;
 
     public Producto(Integer id, String nombre) {
         super(0, "");
     }
 
+    public Producto(float iva, String medidaStock, int categoriaId, boolean productoBoolean, Integer id, String nombre) {
+        super(id, nombre);
+        this.iva = iva;
+        this.medidaStock = medidaStock;
+        this.categoriaId = categoriaId;
+        this.productoBoolean = productoBoolean;
+    }
+    
     public Producto(float iva, String medidaStock, int categoriaId, String categoriaNombre, boolean productoBoolean, Integer id, String nombre) {
         super(id, nombre);
         this.iva = iva;
@@ -32,6 +40,16 @@ public class Producto extends BaseEntity<Integer>{
         this.productoBoolean = productoBoolean;
     }
 
+    public Producto(float iva, String medidaStock, int categoriaId, boolean productoBoolean, byte[] archivoimg, String archivoimg2, Integer id, String nombre) {
+        super(id, nombre);
+        this.iva = iva;
+        this.medidaStock = medidaStock;
+        this.categoriaId = categoriaId;
+        this.productoBoolean = productoBoolean;
+        this.archivoimg = archivoimg;
+        this.archivoimg2 = archivoimg2;
+    }
+    
     public Producto(float iva, String medidaStock, int categoriaId, String categoriaNombre, boolean productoBoolean, String archivoimg2, Integer id, String nombre) {
         super(id, nombre);
         this.iva = iva;
@@ -56,7 +74,7 @@ public class Producto extends BaseEntity<Integer>{
     public String getProductoNombre() {
         return getNombre();
     }
-    
+
     public String getCategoriaNombre() {
         return categoriaNombre;
     }
@@ -64,7 +82,7 @@ public class Producto extends BaseEntity<Integer>{
     public void setCategoriaNombre(String categoriaNombre) {
         this.categoriaNombre = categoriaNombre;
     }
-     
+
     public byte[] getArchivoimg() {
         return archivoimg;
     }
@@ -80,7 +98,7 @@ public class Producto extends BaseEntity<Integer>{
     public void setArchivoimg2(String archivoimg2) {
         this.archivoimg2 = archivoimg2;
     }
-    
+
     public float getIva() {
         return iva;
     }
@@ -122,8 +140,8 @@ public class Producto extends BaseEntity<Integer>{
                 .append(", categoriaId: ").append(categoriaId)
                 .append(", categoriaNombre: ").append(categoriaNombre)
                 .append(", productoBoolean: ").append(productoBoolean)
-                .append(", archivoimg: ").append(archivoimg)
-                .append(", archivoimg2:").append(archivoimg2)
+                .append(", imageView: ").append(archivoimg)
+                .append(", imageByte: ").append(archivoimg2)
                 .append("}").toString();
     }
 

@@ -7,15 +7,23 @@ package ferre.domain.model.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 
 
 /**
  *
- * @author User
+ * @author Matias
  */
+@XmlRootElement(name="Empresa")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Empresa extends BaseEntity<Integer> {
     
     private String empresaRuc = "0000000-0";
+    
     private ArrayList<EmpresaContacto> contacto = new ArrayList();
 
     public Empresa() {
@@ -35,7 +43,7 @@ public class Empresa extends BaseEntity<Integer> {
         this.empresaRuc = empresaRuc;
         this.contacto = contacto;
     }
-
+//    @XmlElement(name="Empresa Ruc")
     public String getEmpresaRuc() {
         return empresaRuc;
     }
@@ -43,7 +51,9 @@ public class Empresa extends BaseEntity<Integer> {
     public void setEmpresaRuc(String empresaRuc) {
         this.empresaRuc = empresaRuc;
     }
-
+    
+//    @XmlElementWrapper(name="Empresa Contactos")
+//    @XmlElement(name="Empresa Contacto")
     public ArrayList<EmpresaContacto> getContacto() {
         return contacto;
     }

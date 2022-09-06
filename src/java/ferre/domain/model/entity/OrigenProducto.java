@@ -5,18 +5,22 @@
  */
 package ferre.domain.model.entity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  *
- * @author User
+ * @author Matias
  */
+public class OrigenProducto extends BaseEntity<Integer> {
 
-public class OrigenProducto extends BaseEntity<Integer>{
-    
     private int detalleProductoId;
     private DetalleProducto detalleProducto;
     private int empresaId;
     private Empresa empresa;
     private int precioVenta;
+    private String ultimaCompra;
 
     public OrigenProducto() {
     }
@@ -25,22 +29,32 @@ public class OrigenProducto extends BaseEntity<Integer>{
         super(id, nombre);
     }
 
-    public OrigenProducto(int detalleProductoId, int empresaId, int precioVenta, Integer id, String nombre) {
+    public OrigenProducto(int detalleProductoId, int empresaId, int precioVenta, String ultimaCompra, Integer id, String nombre) throws ParseException {
         super(id, nombre);
         this.detalleProductoId = detalleProductoId;
         this.empresaId = empresaId;
         this.precioVenta = precioVenta;
+        this.ultimaCompra = ultimaCompra;
     }
 
-    public OrigenProducto(int detalleProductoId, DetalleProducto detalleProducto, int empresaId, Empresa empresa, int precioVenta, Integer id, String nombre) {
+    public OrigenProducto(int detalleProductoId, DetalleProducto detalleProducto, int empresaId, Empresa empresa, int precioVenta, String ultimaCompra, Integer id, String nombre) throws ParseException {
         super(id, nombre);
         this.detalleProductoId = detalleProductoId;
         this.detalleProducto = detalleProducto;
         this.empresaId = empresaId;
         this.empresa = empresa;
         this.precioVenta = precioVenta;
+        this.ultimaCompra = ultimaCompra;
+    }
+    
+    public String getUltimaCompra() {
+        return ultimaCompra;
     }
 
+    public void setUltimaCompra(String ultimaCompra) {
+        this.ultimaCompra = ultimaCompra;
+    }
+    
     public Empresa getEmpresa() {
         return empresa;
     }
@@ -48,7 +62,7 @@ public class OrigenProducto extends BaseEntity<Integer>{
     public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
     }
-        
+   
     public DetalleProducto getDetalleProducto() {
         return detalleProducto;
     }
@@ -56,7 +70,7 @@ public class OrigenProducto extends BaseEntity<Integer>{
     public void setDetalleProducto(DetalleProducto detalleProducto) {
         this.detalleProducto = detalleProducto;
     }
-    
+
     public int getDetalleProductoId() {
         return detalleProductoId;
     }
@@ -95,7 +109,8 @@ public class OrigenProducto extends BaseEntity<Integer>{
                 .append(", empresaNombre: ").append(empresa.getNombre())
                 .append(", empresaRuc: ").append(empresa.getEmpresaRuc())
                 .append(", precioCosto: ").append(detalleProducto.getProductoCosto())
-                .append(", precioVentaDeEmpresa: ").append(precioVenta)
+                .append(", precioAdquisicionAnterior: ").append(precioVenta)
+                .append(", fechaAquisicion: ").append(ultimaCompra)
                 .append("}").toString();
     }
     

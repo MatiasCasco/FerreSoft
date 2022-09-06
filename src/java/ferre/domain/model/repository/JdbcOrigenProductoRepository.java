@@ -12,9 +12,11 @@ import ferre.domain.model.entity.OrigenProducto;
 import ferre.domain.model.entity.Producto;
 import ferre.util.DBUtils;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.logging.Level;
@@ -22,21 +24,23 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author User
+ * @author Matiass
  */
 public class JdbcOrigenProductoRepository implements OrigenProductoRepository<OrigenProducto, Integer> {
-
+    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
     @Override
     public Collection<OrigenProducto> findByIdDetalleProducto(int idDetalleProducto) throws Exception {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         Collection<OrigenProducto> retValue = new ArrayList();
         Connection c = null;
         PreparedStatement pstmt = null;
-        ResultSet rs = null;       
+        ResultSet rs = null;
+        final String link  = "localhost:8084/FerreSoft/rest/ImageAPI/image/"; 
+        String image = "";
         try {
             c = DBUtils.getConnection();
             pstmt = c.prepareStatement("select"
-            + " o.OrigenProductoId, o.EmpresaId, e.EmpresaNombre, e.EmpresaRuc, o.PrecioVentaEmpresa,"
+            + " o.OrigenProductoId, o.EmpresaId, e.EmpresaNombre, e.EmpresaRuc, o.PrecioVentaEmpresa, o.UltimaCompraFecha,"
             + " p.ProductoId, p.ProductoNombre, p.ProductoIva, p.ProductoMedidaStock,"
             + " p.CategoriaId, c.CategoriaNombre, p.ProductoBoolean, dp.DetalleProductoId,"
             + " dp.MarcaId, m.MarcaNombre, dp.ProductoCosto, dp.ProductoPrecio,"
@@ -49,10 +53,11 @@ public class JdbcOrigenProductoRepository implements OrigenProductoRepository<Or
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                Producto prod = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), rs.getInt("ProductoId"), rs.getString("ProductoNombre"));
+                image = link + String.valueOf(rs.getInt("ProductoId"));
+                Producto prod = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), image, rs.getInt("ProductoId"), rs.getString("ProductoNombre"));
                 Empresa empresa = new Empresa(rs.getInt("EmpresaId"), rs.getString("EmpresaNombre"), rs.getString("EmpresaRuc"));
                 DetalleProducto detalleProducto = new DetalleProducto(rs.getInt("ProductoId"), prod,rs.getInt("MarcaId"), rs.getString("MarcaNombre"),rs.getInt("ProductoCosto"), rs.getInt("ProductoPrecio"), rs.getInt("ProductoStockMax"), rs.getInt("ProductoStockActual"), rs.getInt("ProductoStockMin") , rs.getInt("DetalleProductoId"), "Descripcion");
-                retValue.add(new OrigenProducto(detalleProducto.getId(), detalleProducto, empresa.getId(), empresa, rs.getInt("PrecioVentaEmpresa"), rs.getInt("OrigenProductoId"), " "));
+                retValue.add(new OrigenProducto(detalleProducto.getId(), detalleProducto, empresa.getId(), empresa, rs.getInt("PrecioVentaEmpresa"), formato.format(rs.getDate("UltimaCompraFecha")), rs.getInt("OrigenProductoId"), " "));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,11 +83,13 @@ public class JdbcOrigenProductoRepository implements OrigenProductoRepository<Or
         Collection<OrigenProducto> retValue = new ArrayList();
         Connection c = null;
         PreparedStatement pstmt = null;
-        ResultSet rs = null;       
+        ResultSet rs = null;
+        final String link  = "localhost:8084/FerreSoft/rest/ImageAPI/image/"; 
+        String image = "";
         try {
             c = DBUtils.getConnection();
             pstmt = c.prepareStatement("select"
-            + " o.OrigenProductoId, o.EmpresaId, e.EmpresaNombre, e.EmpresaRuc, o.PrecioVentaEmpresa,"
+            + " o.OrigenProductoId, o.EmpresaId, e.EmpresaNombre, e.EmpresaRuc, o.PrecioVentaEmpresa, o.UltimaCompraFecha,"
             + " p.ProductoId, p.ProductoNombre, p.ProductoIva, p.ProductoMedidaStock, p.CategoriaId, c.CategoriaNombre,"
             + " p.ProductoBoolean, dp.DetalleProductoId, dp.MarcaId, m.MarcaNombre, dp.ProductoCosto,"
             + " dp.ProductoPrecio, dp.ProductoStockMin, dp.ProductoStockActual, dp.ProductoStockMax "
@@ -95,10 +102,11 @@ public class JdbcOrigenProductoRepository implements OrigenProductoRepository<Or
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                Producto prod = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), rs.getInt("ProductoId"), rs.getString("ProductoNombre"));
+                image = link + String.valueOf(rs.getInt("ProductoId"));
+                Producto prod = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), image, rs.getInt("ProductoId"), rs.getString("ProductoNombre"));
                 Empresa empresa = new Empresa(rs.getInt("EmpresaId"), rs.getString("EmpresaNombre"), rs.getString("EmpresaRuc"));
                 DetalleProducto detalleProducto = new DetalleProducto(rs.getInt("ProductoId"), prod,rs.getInt("MarcaId"), rs.getString("MarcaNombre"),rs.getInt("ProductoCosto"), rs.getInt("ProductoPrecio"), rs.getInt("ProductoStockMax"), rs.getInt("ProductoStockActual"), rs.getInt("ProductoStockMin") , rs.getInt("DetalleProductoId"), "Descripcion");
-                retValue.add( new OrigenProducto(detalleProducto.getId(), detalleProducto, empresa.getId(), empresa, rs.getInt("PrecioVentaEmpresa"), rs.getInt("OrigenProductoId"), " "));
+                retValue.add( new OrigenProducto(detalleProducto.getId(), detalleProducto, empresa.getId(), empresa, rs.getInt("PrecioVentaEmpresa"), formato.format(rs.getDate("UltimaCompraFecha")), rs.getInt("OrigenProductoId"), " "));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -124,11 +132,13 @@ public class JdbcOrigenProductoRepository implements OrigenProductoRepository<Or
         Collection<OrigenProducto> retValue = new ArrayList();
         Connection c = null;
         PreparedStatement pstmt = null;
-        ResultSet rs = null;       
+        ResultSet rs = null;
+        final String link  = "localhost:8084/FerreSoft/rest/ImageAPI/image/"; 
+        String image = "";
         try {
             c = DBUtils.getConnection();
             pstmt = c.prepareStatement("select"
-            + " o.OrigenProductoId, o.EmpresaId, e.EmpresaNombre, e.EmpresaRuc, o.PrecioVentaEmpresa,"
+            + " o.OrigenProductoId, o.EmpresaId, e.EmpresaNombre, e.EmpresaRuc, o.PrecioVentaEmpresa, o.UltimaCompraFecha,"
             + " p.ProductoId, p.ProductoNombre, p.ProductoIva, p.ProductoMedidaStock, p.CategoriaId, c.CategoriaNombre,"
             + " p.ProductoBoolean, dp.DetalleProductoId, dp.MarcaId, m.MarcaNombre, dp.ProductoCosto,"
             + " dp.ProductoPrecio, dp.ProductoStockMin, dp.ProductoStockActual, dp.ProductoStockMax "
@@ -142,10 +152,11 @@ public class JdbcOrigenProductoRepository implements OrigenProductoRepository<Or
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                Producto prod = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), rs.getInt("ProductoId"), rs.getString("ProductoNombre"));
+                image = link + String.valueOf(rs.getInt("ProductoId"));
+                Producto prod = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), image, rs.getInt("ProductoId"), rs.getString("ProductoNombre"));
                 Empresa empresa = new Empresa(rs.getInt("EmpresaId"), rs.getString("EmpresaNombre"), rs.getString("EmpresaRuc"));
                 DetalleProducto detalleProducto = new DetalleProducto(rs.getInt("ProductoId"), prod,rs.getInt("MarcaId"), rs.getString("MarcaNombre"),rs.getInt("ProductoCosto"), rs.getInt("ProductoPrecio"), rs.getInt("ProductoStockMax"), rs.getInt("ProductoStockActual"), rs.getInt("ProductoStockMin") , rs.getInt("DetalleProductoId"), "Descripcion");
-                retValue.add(new OrigenProducto(detalleProducto.getId(), detalleProducto, empresa.getId(), empresa, rs.getInt("PrecioVentaEmpresa"), rs.getInt("OrigenProductoId"), " "));
+                retValue.add(new OrigenProducto(detalleProducto.getId(), detalleProducto, empresa.getId(), empresa, rs.getInt("PrecioVentaEmpresa"), formato.format(rs.getDate("UltimaCompraFecha")), rs.getInt("OrigenProductoId"), " "));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -171,11 +182,13 @@ public class JdbcOrigenProductoRepository implements OrigenProductoRepository<Or
         Collection<OrigenProducto> retValue = new ArrayList();
         Connection c = null;
         PreparedStatement pstmt = null;
-        ResultSet rs = null;       
+        ResultSet rs = null;
+        final String link  = "localhost:8084/FerreSoft/rest/ImageAPI/image/"; 
+        String image = "";
         try {
             c = DBUtils.getConnection();
             pstmt = c.prepareStatement("select"
-            + " o.OrigenProductoId, o.EmpresaId, e.EmpresaNombre, e.EmpresaRuc, o.PrecioVentaEmpresa,"
+            + " o.OrigenProductoId, o.EmpresaId, e.EmpresaNombre, e.EmpresaRuc, o.PrecioVentaEmpresa, o.UltimaCompraFecha,"
             + " p.ProductoId, p.ProductoNombre, p.ProductoIva, p.ProductoMedidaStock, p.CategoriaId, c.CategoriaNombre,"
             + " p.ProductoBoolean, dp.DetalleProductoId, dp.MarcaId, m.MarcaNombre, dp.ProductoCosto,"
             + " dp.ProductoPrecio, dp.ProductoStockMin, dp.ProductoStockActual, dp.ProductoStockMax "
@@ -188,10 +201,11 @@ public class JdbcOrigenProductoRepository implements OrigenProductoRepository<Or
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                Producto prod = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), rs.getInt("ProductoId"), rs.getString("ProductoNombre"));
+                image = link + String.valueOf(rs.getInt("ProductoId"));
+                Producto prod = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), image, rs.getInt("ProductoId"), rs.getString("ProductoNombre"));
                 Empresa empresa = new Empresa(rs.getInt("EmpresaId"), rs.getString("EmpresaNombre"), rs.getString("EmpresaRuc"));
                 DetalleProducto detalleProducto = new DetalleProducto(rs.getInt("ProductoId"), prod,rs.getInt("MarcaId"), rs.getString("MarcaNombre"),rs.getInt("ProductoCosto"), rs.getInt("ProductoPrecio"), rs.getInt("ProductoStockMax"), rs.getInt("ProductoStockActual"), rs.getInt("ProductoStockMin") , rs.getInt("DetalleProductoId"), "Descripcion");
-                retValue.add(new OrigenProducto(detalleProducto.getId(), detalleProducto, empresa.getId(), empresa, rs.getInt("PrecioVentaEmpresa"), rs.getInt("OrigenProductoId"), " "));
+                retValue.add(new OrigenProducto(detalleProducto.getId(), detalleProducto, empresa.getId(), empresa, rs.getInt("PrecioVentaEmpresa"), formato.format(rs.getDate("UltimaCompraFecha")), rs.getInt("OrigenProductoId"), " "));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -218,10 +232,11 @@ public class JdbcOrigenProductoRepository implements OrigenProductoRepository<Or
         PreparedStatement pstmt = null;
         try {
             c = DBUtils.getConnection();
-            pstmt = c.prepareStatement("INSERT INTO OrigenProducto (DetalleProductoId, EmpresaId, PrecioVentaEmpresa) values (?, ?, ?)");
+            pstmt = c.prepareStatement("INSERT INTO OrigenProducto (DetalleProductoId, EmpresaId, PrecioVentaEmpresa, UltimaCompraFecha,) values (?, ?, ?, STR_TO_DATE(?,'%Y-%m-%d'))");
             pstmt.setInt(1, entity.getDetalleProductoId());
             pstmt.setInt(2, entity.getEmpresaId());
             pstmt.setInt(3, entity.getPrecioVenta());
+            pstmt.setString(4, entity.getUltimaCompra());
             pstmt.execute();
         } catch (Exception e) {
             e.printStackTrace();
@@ -265,13 +280,15 @@ public class JdbcOrigenProductoRepository implements OrigenProductoRepository<Or
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         Connection c = null;
         PreparedStatement pstmt = null;
+        Date fecha = null;
         try {
             c = DBUtils.getConnection();
-            pstmt = c.prepareStatement("UPDATE OrigenProducto SET DetalleProductoId = ?, EmpresaId = ?, PrecioVentaEmpresa = ? WHERE OrigenProductoId = ?");
+            pstmt = c.prepareStatement("UPDATE OrigenProducto SET DetalleProductoId = ?, EmpresaId = ?, PrecioVentaEmpresa = ?, UltimaCompraFecha = STR_TO_DATE(?,'%Y-%m-%d') WHERE OrigenProductoId = ?");
             pstmt.setInt(1, entity.getDetalleProductoId());
             pstmt.setInt(2, entity.getEmpresaId());
             pstmt.setInt(3, entity.getPrecioVenta());
-            pstmt.setInt(4, entity.getId());
+            pstmt.setString(4, entity.getUltimaCompra());
+            pstmt.setInt(5, entity.getId());
             pstmt.execute();
         } catch (Exception e) {
             e.printStackTrace();
@@ -318,11 +335,12 @@ public class JdbcOrigenProductoRepository implements OrigenProductoRepository<Or
         Connection c = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-
+        final String link  = "localhost:8084/FerreSoft/rest/ImageAPI/image/"; 
+        String image = "";
         try {
             c = DBUtils.getConnection();
             pstmt = c.prepareStatement("select"
-            + " o.OrigenProductoId, o.EmpresaId, e.EmpresaNombre, e.EmpresaRuc, o.PrecioVentaEmpresa,"
+            + " o.OrigenProductoId, o.EmpresaId, e.EmpresaNombre, e.EmpresaRuc, o.PrecioVentaEmpresa, o.UltimaCompraFecha,"
             + " p.ProductoId, p.ProductoNombre, p.ProductoIva, p.ProductoMedidaStock, p.CategoriaId, c.CategoriaNombre,"
             + " p.ProductoBoolean, dp.DetalleProductoId, dp.MarcaId, m.MarcaNombre, dp.ProductoCosto,"
             + " dp.ProductoPrecio, dp.ProductoStockMin, dp.ProductoStockActual, dp.ProductoStockMax "
@@ -337,10 +355,11 @@ public class JdbcOrigenProductoRepository implements OrigenProductoRepository<Or
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                Producto prod = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), rs.getInt("ProductoId"), rs.getString("ProductoNombre"));
+                image = link + String.valueOf(rs.getInt("ProductoId"));
+                Producto prod = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), image, rs.getInt("ProductoId"), rs.getString("ProductoNombre"));
                 Empresa empresa = new Empresa(rs.getInt("EmpresaId"), rs.getString("EmpresaNombre"), rs.getString("EmpresaRuc"));
                 DetalleProducto detalleProducto = new DetalleProducto(rs.getInt("ProductoId"), prod,rs.getInt("MarcaId"), rs.getString("MarcaNombre"),rs.getInt("ProductoCosto"), rs.getInt("ProductoPrecio"), rs.getInt("ProductoStockMax"), rs.getInt("ProductoStockActual"), rs.getInt("ProductoStockMin") , rs.getInt("DetalleProductoId"), "Descripcion");
-                retValue = new OrigenProducto(detalleProducto.getId(), detalleProducto, empresa.getId(), empresa, rs.getInt("PrecioVentaEmpresa"), rs.getInt("OrigenProductoId"), " ");
+                retValue = new OrigenProducto(detalleProducto.getId(), detalleProducto, empresa.getId(), empresa, rs.getInt("PrecioVentaEmpresa"), formato.format(rs.getDate("UltimaCompraFecha")), rs.getInt("OrigenProductoId"), " ");
             } 
         } catch (Exception e) {
             e.printStackTrace();
@@ -367,11 +386,13 @@ public class JdbcOrigenProductoRepository implements OrigenProductoRepository<Or
         Collection<OrigenProducto> retValue = new ArrayList();
         Connection c = null;
         PreparedStatement pstmt = null;
-        ResultSet rs = null;       
+        ResultSet rs = null;
+        final String link  = "localhost:8084/FerreSoft/rest/ImageAPI/image/"; 
+        String image = "";
         try {
             c = DBUtils.getConnection();
             pstmt = c.prepareStatement("select"
-            + " o.OrigenProductoId, o.EmpresaId, e.EmpresaNombre, e.EmpresaRuc, o.PrecioVentaEmpresa,"
+            + " o.OrigenProductoId, o.EmpresaId, e.EmpresaNombre, e.EmpresaRuc, o.PrecioVentaEmpresa, o.UltimaCompraFecha,"
             + " p.ProductoId, p.ProductoNombre, p.ProductoIva, p.ProductoMedidaStock, p.CategoriaId, c.CategoriaNombre,"
             + " p.ProductoBoolean, dp.DetalleProductoId, dp.MarcaId, m.MarcaNombre, dp.ProductoCosto,"
             + " dp.ProductoPrecio, dp.ProductoStockMin, dp.ProductoStockActual, dp.ProductoStockMax "
@@ -382,10 +403,11 @@ public class JdbcOrigenProductoRepository implements OrigenProductoRepository<Or
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                Producto prod = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), rs.getInt("ProductoId"), rs.getString("ProductoNombre"));
+                image = link + String.valueOf(rs.getInt("ProductoId"));
+                Producto prod = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), image, rs.getInt("ProductoId"), rs.getString("ProductoNombre"));
                 Empresa empresa = new Empresa(rs.getInt("EmpresaId"), rs.getString("EmpresaNombre"), rs.getString("EmpresaRuc"));
                 DetalleProducto detalleProducto = new DetalleProducto(rs.getInt("ProductoId"), prod,rs.getInt("MarcaId"), rs.getString("MarcaNombre"),rs.getInt("ProductoCosto"), rs.getInt("ProductoPrecio"), rs.getInt("ProductoStockMax"), rs.getInt("ProductoStockActual"), rs.getInt("ProductoStockMin") , rs.getInt("DetalleProductoId"), "Descripcion");
-                retValue.add(new OrigenProducto(detalleProducto.getId(), detalleProducto, empresa.getId(), empresa, rs.getInt("PrecioVentaEmpresa"), rs.getInt("OrigenProductoId"), " "));
+                retValue.add(new OrigenProducto(detalleProducto.getId(), detalleProducto, empresa.getId(), empresa, rs.getInt("PrecioVentaEmpresa"), formato.format(rs.getDate("UltimaCompraFecha")), rs.getInt("OrigenProductoId"), " "));
             }
         } catch (Exception e) {
             e.printStackTrace();

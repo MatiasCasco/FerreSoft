@@ -30,7 +30,9 @@ public class JdbcDetalleProducto implements DetalleProductoRepository<DetallePro
         Collection<DetalleProducto> retValue = new ArrayList();
         Connection c = null;
         PreparedStatement pstmt = null;
-        ResultSet rs = null;       
+        ResultSet rs = null;
+        final String link  = "localhost:8084/FerreSoft/rest/ImageAPI/image/"; 
+        String image = "";
         try {
             c = DBUtils.getConnection();
             pstmt = c.prepareStatement("select"
@@ -45,7 +47,8 @@ public class JdbcDetalleProducto implements DetalleProductoRepository<DetallePro
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                Producto prod = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), rs.getInt("ProductoId"), rs.getString("ProductoNombre"));
+                image = link + String.valueOf(rs.getInt("ProductoId"));
+                Producto prod = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), image, rs.getInt("ProductoId"), rs.getString("ProductoNombre"));
                 retValue.add(new DetalleProducto(rs.getInt("ProductoId"), prod,rs.getInt("MarcaId"), rs.getString("MarcaNombre"),rs.getInt("ProductoCosto"), rs.getInt("ProductoPrecio"), rs.getInt("ProductoStockMax"), rs.getInt("ProductoStockActual"), rs.getInt("ProductoStockMin") , rs.getInt("DetalleProductoId"), "Descripcion"));
             }
         } catch (Exception e) {
@@ -74,7 +77,8 @@ public class JdbcDetalleProducto implements DetalleProductoRepository<DetallePro
         Connection c = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-
+        final String link  = "localhost:8084/FerreSoft/rest/ImageAPI/image/"; 
+        String image = "";
         try {
             c = DBUtils.getConnection();
             pstmt = c.prepareStatement("select "
@@ -90,7 +94,8 @@ public class JdbcDetalleProducto implements DetalleProductoRepository<DetallePro
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                Producto prod = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), rs.getInt("ProductoId"), rs.getString("ProductoNombre"));
+                image = link + String.valueOf(rs.getInt("ProductoId"));
+                Producto prod = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), image, rs.getInt("ProductoId"), rs.getString("ProductoNombre"));
                 retValue = new DetalleProducto(rs.getInt("ProductoId"), prod,rs.getInt("MarcaId"), rs.getString("MarcaNombre"),rs.getInt("ProductoCosto"), rs.getInt("ProductoPrecio"), rs.getInt("ProductoStockMax"), rs.getInt("ProductoStockActual"), rs.getInt("ProductoStockMin") , rs.getInt("DetalleProductoId"), "Descripcion");                           
             } 
         } catch (Exception e) {
@@ -226,7 +231,8 @@ public class JdbcDetalleProducto implements DetalleProductoRepository<DetallePro
         Connection c = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-
+        final String link  = "localhost:8084/FerreSoft/rest/ImageAPI/image/"; 
+        String image = "";
         try {
             c = DBUtils.getConnection();
             pstmt = c.prepareStatement("select "
@@ -242,7 +248,8 @@ public class JdbcDetalleProducto implements DetalleProductoRepository<DetallePro
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                Producto prod = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), rs.getInt("ProductoId"), rs.getString("ProductoNombre"));
+                image = link + String.valueOf(rs.getInt("ProductoId"));
+                Producto prod = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), image, rs.getInt("ProductoId"), rs.getString("ProductoNombre"));
                 retValue = new DetalleProducto(rs.getInt("ProductoId"), prod,rs.getInt("MarcaId"), rs.getString("MarcaNombre"),rs.getInt("ProductoCosto"), rs.getInt("ProductoPrecio"), rs.getInt("ProductoStockMax"), rs.getInt("ProductoStockActual"), rs.getInt("ProductoStockMin") , rs.getInt("DetalleProductoId"), "Descripcion");                           
             } 
         } catch (Exception e) {
@@ -270,7 +277,8 @@ public class JdbcDetalleProducto implements DetalleProductoRepository<DetallePro
         Connection c = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        
+        final String link  = "localhost:8084/FerreSoft/rest/ImageAPI/image/"; 
+        String image = "";
         try {
             c = DBUtils.getConnection();
             pstmt = c.prepareStatement("select "
@@ -283,7 +291,8 @@ public class JdbcDetalleProducto implements DetalleProductoRepository<DetallePro
             + " and dp.MarcaId = m.MarcaId");
             rs = pstmt.executeQuery();
             while (rs.next()) {
-                Producto prod = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), rs.getInt("ProductoId"), rs.getString("ProductoNombre"));
+                image = link + String.valueOf(rs.getInt("ProductoId"));
+                Producto prod = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), image, rs.getInt("ProductoId"), rs.getString("ProductoNombre"));
                 retValue.add(new DetalleProducto(rs.getInt("ProductoId"), prod,rs.getInt("MarcaId"), rs.getString("MarcaNombre"),rs.getInt("ProductoCosto"), rs.getInt("ProductoPrecio"), rs.getInt("ProductoStockMax"), rs.getInt("ProductoStockActual"), rs.getInt("ProductoStockMin") , rs.getInt("DetalleProductoId"), "Descripcion"));
             }
         } catch (Exception e) {

@@ -69,7 +69,7 @@ public class EmpresaRestService {
     @POST
     @Path("/empresaByRuc")
     @Consumes("application/json")
-    @Produces("application/json")
+    @Produces({"application/json", "application/xml"})
     public Empresa empresaBYRuc(String Json) throws Exception  {
         JSONObject ob = new JSONObject(Json);
         Empresa empresa = empresaService.findByRuc(ob.getString("Ruc"));
@@ -81,6 +81,16 @@ public class EmpresaRestService {
     @Consumes("application/json")
     @Produces("application/json")
     public ArrayList<EmpresaContacto> contactos(String Json) throws Exception {
+        JSONObject ob = new JSONObject(Json);
+        ArrayList<EmpresaContacto> contactos = (ArrayList<EmpresaContacto>) empresaService.getContactos(ob.getInt("idEmpresa"));
+        return contactos;
+    }
+    
+    @POST
+    @Path("/contactosXML")
+    @Consumes("application/json")
+    @Produces({"application/xml", "application/json"})
+    public ArrayList<EmpresaContacto> contactosXML(String Json) throws Exception {
         JSONObject ob = new JSONObject(Json);
         ArrayList<EmpresaContacto> contactos = (ArrayList<EmpresaContacto>) empresaService.getContactos(ob.getInt("idEmpresa"));
         return contactos;
