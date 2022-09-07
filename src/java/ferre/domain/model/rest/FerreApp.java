@@ -22,6 +22,8 @@ public class FerreApp extends Application {
         singletons.add(new EmpresaRestService());
         singletons.add(new OrigenProductoRestService());
         singletons.add(new ImageRestService());
+        singletons.add(new ProductoRestService());
+        singletons.add(new DetalleProductoRestService());
     }
 
     @Override

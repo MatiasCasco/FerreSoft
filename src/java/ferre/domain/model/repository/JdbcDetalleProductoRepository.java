@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  *
  * @author User
  */
-public class JdbcDetalleProducto implements DetalleProductoRepository<DetalleProducto, Integer> {
+public class JdbcDetalleProductoRepository implements DetalleProductoRepository<DetalleProducto, Integer> {
 
     @Override
     public Collection<DetalleProducto> findByIdProducto(int idProducto) throws Exception {
@@ -63,7 +63,7 @@ public class JdbcDetalleProducto implements DetalleProductoRepository<DetallePro
                 }
                 DBUtils.closeConnection(c);
             } catch (SQLException ex) {
-                Logger.getLogger(JdbcDetalleProducto.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(JdbcDetalleProductoRepository.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return retValue;
@@ -110,7 +110,7 @@ public class JdbcDetalleProducto implements DetalleProductoRepository<DetallePro
                 }
                 DBUtils.closeConnection(c);
             } catch (SQLException ex) {
-                Logger.getLogger(JdbcDetalleProducto.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(JdbcDetalleProductoRepository.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return retValue;
@@ -141,7 +141,7 @@ public class JdbcDetalleProducto implements DetalleProductoRepository<DetallePro
                 }
                 DBUtils.closeConnection(c);
             } catch (SQLException ex) {
-                Logger.getLogger(JdbcDetalleProducto.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(JdbcDetalleProductoRepository.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -164,7 +164,7 @@ public class JdbcDetalleProducto implements DetalleProductoRepository<DetallePro
                 }
                 DBUtils.closeConnection(c);
             } catch (SQLException ex) {
-                Logger.getLogger(JdbcDetalleProducto.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(JdbcDetalleProductoRepository.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -195,7 +195,7 @@ public class JdbcDetalleProducto implements DetalleProductoRepository<DetallePro
                 }
                 DBUtils.closeConnection(c);
             } catch (SQLException ex) {
-                Logger.getLogger(JdbcDetalleProducto.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(JdbcDetalleProductoRepository.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -219,7 +219,7 @@ public class JdbcDetalleProducto implements DetalleProductoRepository<DetallePro
             } 
             
         } catch (SQLException ex) {
-            Logger.getLogger(JdbcDetalleProducto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JdbcDetalleProductoRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
@@ -264,7 +264,7 @@ public class JdbcDetalleProducto implements DetalleProductoRepository<DetallePro
                 }
                 DBUtils.closeConnection(c);
             } catch (SQLException ex) {
-                Logger.getLogger(JdbcDetalleProducto.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(JdbcDetalleProductoRepository.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return retValue;
@@ -308,7 +308,7 @@ public class JdbcDetalleProducto implements DetalleProductoRepository<DetallePro
                 DBUtils.closeConnection(c);
             return retValue;
             } catch (SQLException ex) {
-                Logger.getLogger(JdbcDetalleProducto.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(JdbcDetalleProductoRepository.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return retValue;

@@ -19,6 +19,9 @@ public class Producto extends BaseEntity<Integer>{
     private byte[] archivoimg/* = {}*/;
     private String archivoimg2/* = " "*/;
 
+    public Producto() {
+    }
+    
     public Producto(Integer id, String nombre) {
         super(0, "");
     }

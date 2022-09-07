@@ -24,7 +24,7 @@ import org.codehaus.jettison.json.JSONObject;
 /**
  * REST Web Service
  *
- * @author User
+ * @author Matias
  */
 @Path("/OrigenProductoAPI")
 public class OrigenProductoRestService {
@@ -93,6 +93,15 @@ public class OrigenProductoRestService {
         return listOP;
     }
     
+    @POST
+    @Path("/origenProductoById")
+    @Consumes("application/json")
+    @Produces("application/json")
+    public OrigenProducto opByOrigenProducto(String Json) throws Exception {
+        JSONObject ob = new JSONObject(Json);
+        OrigenProducto OP =  OrigenProductoService.findByIdOrigenProducto(ob.getInt("idOrigenProducto"));
+        return OP;
+    }
 //    
 //    @GET
 //    @Produces("application/xml")

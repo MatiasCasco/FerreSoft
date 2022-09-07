@@ -9,7 +9,7 @@ import ferre.domain.model.entity.DetalleProducto;
 import ferre.domain.model.entity.Empresa;
 import ferre.domain.model.entity.EmpresaContacto;
 import ferre.domain.model.entity.Producto;
-import ferre.domain.model.repository.JdbcDetalleProducto;
+import ferre.domain.model.repository.JdbcDetalleProductoRepository;
 import ferre.domain.model.repository.JdbcEmpresaContactoRepository;
 import ferre.domain.model.repository.JdbcEmpresaRepository;
 import ferre.domain.model.repository.JdbcImageRepository;
@@ -60,15 +60,15 @@ public class Prueba {
         }
     Producto */
         /*DetalleProducto */
-        JdbcDetalleProducto DP = new JdbcDetalleProducto();
-        DetalleProducto DetP = new DetalleProducto(3, 6, 8000, 12000, 100, 0, 25, 3, " ");
-        System.out.println(DP.contains(5));
-        System.out.println(DP.get(5));
-        System.out.println(DP.getAll().toString());
+        JdbcDetalleProductoRepository DP = new JdbcDetalleProductoRepository();
+        DetalleProducto DetP = new DetalleProducto(1, 1, 4000, 7000, 100, 0, 24, 1, " ");
+//        System.out.println(DP.contains(5));
+//        System.out.println(DP.get(5));
+//        System.out.println(DP.getAll().toString());
 //        DP.add(DetP);
         DP.update(DetP);
-        System.out.println(DP.findByIdProducto(1));
-        System.out.println(DP.findByIdProductoAndIdMarca(2, 1));
+//        System.out.println(DP.findByIdProducto(1));
+//        System.out.println(DP.findByIdProductoAndIdMarca(2, 1));
         /*DetalleProducto*/
         /* Image
         JdbcImageRepository Imagen = new JdbcImageRepository();

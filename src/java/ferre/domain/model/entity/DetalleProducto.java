@@ -20,6 +20,9 @@ public class DetalleProducto extends BaseEntity<Integer> {
     private int productoStockActual;
     private int productoStockMin;
 
+    public DetalleProducto() {
+    }
+    
     public DetalleProducto(Integer id, String nombre) {
         super(0, "");
     }

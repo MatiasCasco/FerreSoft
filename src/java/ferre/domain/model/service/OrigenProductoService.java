@@ -65,4 +65,12 @@ public interface OrigenProductoService {
      * @throws Exception
      */
     public Collection<OrigenProducto> findByIdEmpresa(int idEmpresa) throws Exception;
+    
+    /**
+     * 
+     * @param idOrigenProducto
+     * @return Collection
+     * @throws Exception
+     */
+    public OrigenProducto findByIdOrigenProducto(int idOrigenProducto) throws Exception;
 } 

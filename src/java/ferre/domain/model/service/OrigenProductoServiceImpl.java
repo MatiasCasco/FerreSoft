@@ -84,8 +84,13 @@ public class OrigenProductoServiceImpl extends BaseService<OrigenProducto, Integ
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         return OrigenProductoRepository.findByIdEmpresa(idEmpresa);
     }
-    
-    
+
+    @Override
+    public OrigenProducto findByIdOrigenProducto(int idOrigenProducto) throws Exception {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (OrigenProducto) OrigenProductoRepository.get(idOrigenProducto);
+    }
+     
 }    
     
     
