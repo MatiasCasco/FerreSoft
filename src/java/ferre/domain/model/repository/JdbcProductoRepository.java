@@ -24,7 +24,8 @@ import java.util.logging.Logger;
  * @author User
  */
 public class JdbcProductoRepository implements ProductoRepository<Producto, Integer>{
-
+    
+    String ip = "192.168.56.1";
 //    @Override
 //    public boolean ContainsId(int idProducto) throws Exception {
 //        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -95,7 +96,7 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
         Connection c = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        final String link  = "localhost:8084/FerreSoft/rest/ImageAPI/image/"; 
+        final String link  = "http://"+ip+":8084/FerreSoft/rest/ImageAPI/image/"; 
         String image = "";
         try {
             c = DBUtils.getConnection();
@@ -137,7 +138,7 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
         Connection c = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        final String link  = "localhost:8084/FerreSoft/rest/ImageAPI/image/"; 
+        final String link  = "http://"+ip+":8084/FerreSoft/rest/ImageAPI/image/"; 
         String image = "";
         try {
             c = DBUtils.getConnection();
@@ -284,7 +285,7 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
         Connection c = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        final String link  = "localhost:8084/FerreSoft/rest/ImageAPI/image/"; 
+        final String link  = "http://"+ip+":8084/FerreSoft/rest/ImageAPI/image/"; 
         String image = "";
         try {
             c = DBUtils.getConnection();
@@ -327,7 +328,7 @@ public class JdbcProductoRepository implements ProductoRepository<Producto, Inte
         Connection c = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        final String link  = "localhost:8084/FerreSoft/rest/ImageAPI/image/"; 
+        final String link  = "http://"+ip+":8084/FerreSoft/rest/ImageAPI/image/"; 
         String image = "";
         try {
             c = DBUtils.getConnection();

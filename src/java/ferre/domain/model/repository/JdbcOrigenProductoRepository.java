@@ -27,6 +27,7 @@ import java.util.logging.Logger;
  * @author Matiass
  */
 public class JdbcOrigenProductoRepository implements OrigenProductoRepository<OrigenProducto, Integer> {
+    String ip = "192.168.56.1";
     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
     @Override
     public Collection<OrigenProducto> findByIdDetalleProducto(int idDetalleProducto) throws Exception {
@@ -35,7 +36,7 @@ public class JdbcOrigenProductoRepository implements OrigenProductoRepository<Or
         Connection c = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        final String link  = "localhost:8084/FerreSoft/rest/ImageAPI/image/"; 
+        final String link  = "http://"+ip+":8084/FerreSoft/rest/ImageAPI/image/"; 
         String image = "";
         try {
             c = DBUtils.getConnection();
@@ -84,7 +85,7 @@ public class JdbcOrigenProductoRepository implements OrigenProductoRepository<Or
         Connection c = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        final String link  = "localhost:8084/FerreSoft/rest/ImageAPI/image/"; 
+        final String link  = "http://"+ip+":8084/FerreSoft/rest/ImageAPI/image/"; 
         String image = "";
         try {
             c = DBUtils.getConnection();
@@ -133,7 +134,7 @@ public class JdbcOrigenProductoRepository implements OrigenProductoRepository<Or
         Connection c = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        final String link  = "localhost:8084/FerreSoft/rest/ImageAPI/image/"; 
+        final String link  = "http://"+ip+":8084/FerreSoft/rest/ImageAPI/image/"; 
         String image = "";
         try {
             c = DBUtils.getConnection();
@@ -183,7 +184,7 @@ public class JdbcOrigenProductoRepository implements OrigenProductoRepository<Or
         Connection c = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        final String link  = "localhost:8084/FerreSoft/rest/ImageAPI/image/"; 
+        final String link  = "http://"+ip+":8084/FerreSoft/rest/ImageAPI/image/"; 
         String image = "";
         try {
             c = DBUtils.getConnection();
@@ -335,7 +336,7 @@ public class JdbcOrigenProductoRepository implements OrigenProductoRepository<Or
         Connection c = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        final String link  = "localhost:8084/FerreSoft/rest/ImageAPI/image/"; 
+        final String link  = "http://"+ip+":8084/FerreSoft/rest/ImageAPI/image/"; 
         String image = "";
         try {
             c = DBUtils.getConnection();
@@ -387,7 +388,7 @@ public class JdbcOrigenProductoRepository implements OrigenProductoRepository<Or
         Connection c = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        final String link  = "localhost:8084/FerreSoft/rest/ImageAPI/image/"; 
+        final String link  = "http://"+ip+":8084/FerreSoft/rest/ImageAPI/image/"; 
         String image = "";
         try {
             c = DBUtils.getConnection();
