@@ -30,5 +30,14 @@ public interface DetalleProductoRepository<DetalleProducto, Integer> extends Rep
      * @throws Exception
      */
     public DetalleProducto findByIdProductoAndIdMarca (int idProducto, int idMarca) throws Exception;
+    
+    
+    
+    
+    public Collection<DetalleProducto> getAlldetais() throws Exception;
+    
+    
+    
+    
 
 }

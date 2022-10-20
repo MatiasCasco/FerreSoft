@@ -8,12 +8,14 @@ package Prueba;
 import ferre.domain.model.entity.DetalleProducto;
 import ferre.domain.model.entity.Empresa;
 import ferre.domain.model.entity.EmpresaContacto;
+import ferre.domain.model.entity.Persona;
 import ferre.domain.model.entity.Producto;
 import ferre.domain.model.repository.JdbcDetalleProductoRepository;
 import ferre.domain.model.repository.JdbcEmpresaContactoRepository;
 import ferre.domain.model.repository.JdbcEmpresaRepository;
 import ferre.domain.model.repository.JdbcImageRepository;
 import ferre.domain.model.repository.JdbcOrigenProductoRepository;
+import ferre.domain.model.repository.JdbcPersonaRepository;
 import ferre.domain.model.repository.JdbcProductoRepository;
 import ferre.domain.model.repository.ProductoRepository;
 import java.io.FileInputStream;
@@ -32,9 +34,10 @@ public class Prueba {
      */
     public static void main(String[] args) throws Exception {
         // TODO code application logic here
- /*Producto    
+ //Producto    
         try{
-            JdbcProductoRepository Producto = new JdbcProductoRepository();
+            JdbcDetalleProductoRepository Producto = new JdbcDetalleProductoRepository();
+            //JdbcProductoRepository Producto = new JdbcProductoRepository();
 //            FileInputStream myStream = new FileInputStream("C:\\Users\\User\\Pictures\\Productos\\Pintura.jpg");
 //            byte[] imageInBytes = IOUtils.toByteArray(myStream);
 //            Producto Product = new Producto(10, "Kilo", 1 ,false, imageInBytes, " ", 3,"Clavo 2 x 13 mm");
@@ -51,22 +54,22 @@ public class Prueba {
 //            System.out.println(Producto.findByIdCategoria(1) + " Productos de la categoria");
 //            System.out.println(Producto.contains(4) + " Busca y retorna un boolean");
 //            Producto.remove(6);
-            System.out.println(Producto.get(1).toString() + " JSON get entity");
+          //  System.out.println(Producto.get(1).toString() + " JSON get entity");
             System.out.println(Producto.getAll());
 //            System.out.println(Producto.findByIdMarca(6).toString());
 //          System.out.println(Producto.findByIdCategoria(1).toString());
         } catch (Exception ex){
 //        
         }
-    Producto */
+    //Producto */
         /*DetalleProducto */
-        JdbcDetalleProductoRepository DP = new JdbcDetalleProductoRepository();
-        DetalleProducto DetP = new DetalleProducto(1, 1, 4000, 7000, 100, 0, 24, 1, " ");
+        //JdbcDetalleProductoRepository DP = new JdbcDetalleProductoRepository();
+       // DetalleProducto DetP = new DetalleProducto(1, 1, 4000, 7000, 100, 0, 24, 1, " ");
 //        System.out.println(DP.contains(5));
 //        System.out.println(DP.get(5));
 //        System.out.println(DP.getAll().toString());
 //        DP.add(DetP);
-        DP.update(DetP);
+        //DP.update(DetP);
 //        System.out.println(DP.findByIdProducto(1));
 //        System.out.println(DP.findByIdProductoAndIdMarca(2, 1));
         /*DetalleProducto*/
@@ -89,5 +92,13 @@ public class Prueba {
          */
 //        JdbcOrigenProductoRepository OrigenProducto = new JdbcOrigenProductoRepository();
 //        System.out.println(OrigenProducto.findByIdProductoAndIdEmpresa(5, 2));
+        
+       
+        /*JdbcPersonaRepository EmpleadoR = new JdbcPersonaRepository();
+         ArrayList<Persona> empleados = new ArrayList();
+         empleados=(ArrayList<Persona>) EmpleadoR.getClientes();
+         for (Persona p: empleados)
+             System.out.println(p.getNombreRazonSocial());*/
+        
     }   
 }
