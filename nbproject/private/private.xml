@@ -2,6 +2,13 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+
+        <group>
+            <file>file:/C:/Users/HP/Downloads/FerreSoft-master/src/java/ferre/domain/model/rest/PersonaRest.java</file>
+            <file>file:/C:/Users/HP/Downloads/FerreSoft-master/src/java/Prueba/Prueba.java</file>
+            <file>file:/C:/Users/HP/Downloads/FerreSoft-master/src/java/ferre/domain/model/service/PersonaService.java</file>
+            <file>file:/C:/Users/HP/Downloads/FerreSoft-master/src/java/ferre/domain/model/rest/ProductoRestService.java</file>
+            <file>file:/C:/Users/HP/Downloads/FerreSoft-master/src/java/ferre/domain/model/service/PersonaServiceImpl.java</file>
+        </group>
     </open-files>
 </project-private>

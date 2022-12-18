@@ -18,6 +18,8 @@ public class Producto extends BaseEntity<Integer>{
     private boolean productoBoolean;
     private byte[] archivoimg/* = {}*/;
     private String archivoimg2/* = " "*/;
+    private float productoPrecio;
+    
 
     public Producto() {
     }
@@ -74,6 +76,19 @@ public class Producto extends BaseEntity<Integer>{
         this.archivoimg2 = archivoimg2;
     }
 
+    public Producto(float iva, String medidaStock, int categoriaId, String categoriaNombre, boolean productoBoolean, byte[] archivoimg, String archivoimg2, float productoPrecio, Integer id, String nombre) {
+        super(id, nombre);
+        this.iva = iva;
+        this.medidaStock = medidaStock;
+        this.categoriaId = categoriaId;
+        this.categoriaNombre = categoriaNombre;
+        this.productoBoolean = productoBoolean;
+        this.archivoimg = archivoimg;
+        this.archivoimg2 = archivoimg2;
+        this.productoPrecio = productoPrecio;
+    }
+    
+
     public String getProductoNombre() {
         return getNombre();
     }
@@ -108,6 +123,14 @@ public class Producto extends BaseEntity<Integer>{
 
     public void setIva(float iva) {
         this.iva = iva;
+    }
+
+    public float getProductoPrecio() {
+        return productoPrecio;
+    }
+
+    public void setProductoPrecio(float productoPrecio) {
+        this.productoPrecio = productoPrecio;
     }
 
     public String getMedidaStock() {

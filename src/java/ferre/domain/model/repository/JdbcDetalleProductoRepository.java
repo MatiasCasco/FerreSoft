@@ -277,7 +277,7 @@ public class JdbcDetalleProductoRepository implements DetalleProductoRepository<
         Connection c = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        final String link  = "http://"+ip+":8084/FerreSoft/rest/ImageAPI/image/"; 
+        final String link  = "http://"+ip+":8080/FerreSoft/rest/ImageAPI/image/"; 
         String image = "";
         try {
             c = DBUtils.getConnection();
@@ -313,5 +313,50 @@ public class JdbcDetalleProductoRepository implements DetalleProductoRepository<
         }
         return retValue;
     }
+     @Override
+    public Collection<DetalleProducto> getAlldetais() throws Exception {
+    Collection<DetalleProducto> retValue = new ArrayList();
+        Connection c = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        final String link  = "http://"+ip+":8080/FerreSoft/rest/ImageAPI/image/"; 
+        String image = "";
+        try {
+            c = DBUtils.getConnection();
+            pstmt = c.prepareStatement("select "
+            + "p.ProductoId, p.ProductoNombre, p.ProductoIva, p.ProductoMedidaStock, p.CategoriaId, c.CategoriaNombre, p.ProductoBoolean, "
+            + "dp.DetalleProductoId, dp.MarcaId, m.MarcaNombre, dp.ProductoCosto, dp.ProductoPrecio, dp.ProductoStockMin,"
+            + " dp.ProductoStockActual, dp.ProductoStockMax "
+            + "from producto p, detalleproducto dp, marca m, categoria c "
+            + "where p.ProductoId = dp.ProductoId"
+            + " and p.CategoriaId = c.CategoriaId"
+            + " and dp.MarcaId = m.MarcaId");
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                image = link + String.valueOf(rs.getInt("ProductoId"));
+                //iva,MedidaStock,CategoriaId,CategoriaNombre,ProductoBoolean,ProductoId,ProductoNombre,
+                Producto prod = new Producto(rs.getFloat("ProductoIva"), rs.getString("ProductoMedidaStock"), rs.getInt("CategoriaId"), rs.getString("CategoriaNombre"), rs.getBoolean("ProductoBoolean"), image, rs.getInt("ProductoId"), rs.getString("ProductoNombre"));
+                retValue.add(new DetalleProducto(rs.getInt("ProductoId"), prod,rs.getInt("MarcaId"), rs.getString("MarcaNombre"),rs.getInt("ProductoCosto"), rs.getInt("ProductoPrecio"), rs.getInt("ProductoStockMax"), rs.getInt("ProductoStockActual"), rs.getInt("ProductoStockMin") , rs.getInt("DetalleProductoId"), "Descripcion"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+                DBUtils.closeConnection(c);
+            return retValue;
+            } catch (SQLException ex) {
+                Logger.getLogger(JdbcDetalleProductoRepository.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return retValue;
+    }
+
+   
   
 }
